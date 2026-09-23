@@ -1,9 +1,14 @@
+import os
+from huggingface_hub import InferenceClient
 import streamlit as st
 
 st.set_page_config(
     page_title="AI Chatbot",
     page_icon="🤖"
 )
+
+client = InferenceClient(token=os.getenv("HF_TOKEN"))
+
 
 st.title("🤖 AI Chatbot")
 st.write("An AI chatbot with conversation context")
@@ -28,39 +33,28 @@ if "messages" not in st.session_state:
 # Generate chatbot response
 def generate_response(user_input):
 
-    text = user_input.lower()
+    messages = [
+        {
+            "role": "system",
+            "content": (
+                "You are a helpful AI assistant. "
+                "Give clear, simple and accurate answers. "
+                "Use the conversation history to understand follow-up questions."
+            )
+        }
+    ]
 
-    if "what is python" in text:
-        return (
-            "Python is a high-level programming language. "
-            "It is easy to learn and is widely used in software "
-            "development, data analysis, AI and machine learning."
-        )
+    # Add conversation history
+    messages.extend(st.session_state.messages)
 
-    elif "python" in text or "used for" in text:
-        return (
-            "Python is used for web development, data analysis, "
-            "automation, machine learning and artificial intelligence."
-        )
+    response = client.chat_completion(
+        model="openai/gpt-oss-120b",
+        messages=messages,
+        max_tokens=300,
+        temperature=0.7
+    )
 
-    elif "hello" in text or "hi" in text:
-        return "Hello! How can I help you today?"
-
-    elif "ai" in text or "artificial intelligence" in text:
-        return (
-            "Artificial Intelligence (AI) is a technology that "
-            "allows computers to perform tasks that normally "
-            "require human intelligence."
-        )
-
-    elif "how are you" in text:
-        return "I'm doing great! What would you like to learn?"
-
-    elif "thank" in text:
-        return "You're welcome!"
-
-    else:
-        return "That's an interesting question! I'm currently running in demo mode."
+    return response.choices[0].message.content
 # Display previous messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
