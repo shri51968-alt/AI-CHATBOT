@@ -2,66 +2,83 @@
 
 ## 📌 Project Overview
 
-This project is a simple AI chatbot developed as a practical Generative AI internship project.
+This project is an AI chatbot developed as a practical Generative AI internship project.
 
-The chatbot provides responses to user questions and maintains a basic conversation context.
+The chatbot uses the Hugging Face Inference API to generate AI-based responses and maintains conversation context during the current session.
 
 ## ✨ Features
 
-- User-friendly chatbot interface
+- AI-powered chatbot
+- Real AI API integration
+- User-friendly Streamlit interface
 - Conversation history
-- Context-based responses
-- Prompt-based response generation
-- Different responses for different questions
+- Context-aware responses
+- Prompt design
 - Clear Chat option
-- Built using Python and Streamlit
+- Natural language interaction
 
 ## 🛠️ Technologies Used
 
 - Python
 - Streamlit
-- Generative AI concepts
+- Hugging Face Inference API
+- Hugging Face InferenceClient
+- Generative AI
 - Prompt Engineering
 
 ## 🧠 Prompt Design
 
-The chatbot is designed to provide clear, simple and useful responses to user questions.
+The chatbot uses a system prompt to guide the AI assistant.
 
-The prompt design focuses on understanding the user's input and providing an appropriate response.
+The prompt instructs the chatbot to:
+
+- Provide clear and simple answers
+- Give accurate information
+- Understand user questions
+- Use previous conversation messages for follow-up questions
 
 ## 💬 Conversation Context
 
-The chatbot stores previous messages during the current session.
+The chatbot stores messages from the current session and sends the conversation history to the AI model.
 
-For example:
+Example:
 
 User: What is Python?
 
-Bot: Python is a high-level programming language.
+Bot: Python is a programming language used for many applications.
 
 User: What is it used for?
 
 Bot: Python is used for web development, data analysis, automation, machine learning and artificial intelligence.
 
+The second question can be understood using the previous conversation context.
+
+## 🔗 AI API Integration
+
+The project uses the Hugging Face Inference API through the Python `InferenceClient`.
+
+The chatbot sends the user's message and conversation history to the AI model and receives an AI-generated response.
+
 ## 🧪 Testing
 
-The chatbot was tested using different inputs such as:
+The chatbot was tested using different questions such as:
 
 - Hello
 - What is Python?
-- What is it used for?
-- What is AI?
-- How are you?
-- Thank you
+- What is artificial intelligence?
+- What is Python used for?
+- Explain machine learning
+- Follow-up questions
 
-The chatbot successfully generated responses for these test cases.
+The chatbot successfully generated responses for the test cases.
 
 ## ▶️ How to Run
 
 1. Install Python.
-2. Install Streamlit.
-3. Open the project folder in Command Prompt.
-4. Run:
+2. Install the required packages.
+3. Set the Hugging Face API token as an environment variable.
+4. Open the project folder in Command Prompt or Terminal.
+5. Run:
 
 ```text
 python -m streamlit run app.py
